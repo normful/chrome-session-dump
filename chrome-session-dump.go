@@ -571,12 +571,19 @@ func main() {
 	var historyFlag bool
 	var outputFmt string
 
+	// Merge-dedup mode flags (see merge_dedup.go)
+	var mergeDedupDir string
+	var outputPath string
+
 	flag.BoolVar(&jsonFlag, "json", false, "Produce json formatted output. Note that this includes all tabs along with their history and any corresponding metadata. Useful for other scripts.")
 	flag.BoolVar(&activeFlag, "active", false, "Print the currently active tab.")
 	flag.StringVar(&outputFmt, "printf", "%u\n", "The output format for tabs if -json is not specified (%u = url, %t = title, %g = group).")
 
 	flag.BoolVar(&deletedFlag, "deleted", false, "Include tabs which have been deleted.")
 	flag.BoolVar(&historyFlag, "history", false, "Include the history of each tab in the output.")
+
+	flag.StringVar(&mergeDedupDir, "merge-dedup", "", "Merge and deduplicate tabs from all session files under <dir>, output JSONL (one JSON object per line, url/title/history).")
+	flag.StringVar(&outputPath, "output", "", "Output file path (default stdout). Only meaningful with -merge-dedup.")
 
 	flag.Usage = func() {
 		fmt.Printf("Usage: chrome-session-dump [options] ([session file] | [chrome dir])\n\n")
@@ -612,6 +619,11 @@ default.
 
 	if target == "" {
 		panic(fmt.Errorf("Unable to find session file."))
+	}
+
+	if mergeDedupDir != "" {
+		runMergeDedup(mergeDedupDir, outputPath)
+		return
 	}
 
 	data := parse(target)
