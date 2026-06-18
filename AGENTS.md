@@ -8,6 +8,18 @@ Parses Chrome/Chromium SNSS session files and outputs tab data as JSON or format
 - `go vet ./...` — static analysis (must pass before commit)
 - `go fmt ./...` — format all Go files (run before commit)
 
+## Usage
+
+```bash
+./bin/chrome-session-dump                              # needs a session file
+./bin/chrome-session-dump ~/path/to/Session_XXXX       # explicit session file
+./bin/chrome-session-dump /path/to/chrome/profile      # finds newest Session_* in dir
+./bin/chrome-session-dump -json ...                    # JSON output
+./bin/chrome-session-dump -history ...                 # include tab history
+./bin/chrome-session-dump -active ...                  # active tab only
+./bin/chrome-session-dump -printf "%t → %u\\n" ...     # custom format (%u=url %t=title %g=group)
+```
+
 ## Project structure
 
 - `chrome-session-dump.go` — single-file entry point. Contains: SNSS parser (`parse()`), output builder (`buildResult()`), session file finder (`findSession()`), printf-style formatter (`tabPrintf()`), CLI (`main()`).
