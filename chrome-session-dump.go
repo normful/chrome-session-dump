@@ -56,7 +56,6 @@ const (
 )
 
 type group struct {
-
 	high      uint64
 	low       uint64
 	name      string
@@ -89,7 +88,7 @@ type tab struct {
 	group             *group //May be null
 }
 
-//indexed by id
+// indexed by id
 var tabs = map[uint32]*tab{}
 var windows = map[uint32]*window{}
 var groups = map[string]*group{}
@@ -258,9 +257,9 @@ type Tab struct {
 }
 
 type TabGroup struct {
-	Name      string       `json:"name"`
-	Color     uint32       `json:"color"`
-	Collapsed bool         `json:"collapsed"`
+	Name      string `json:"name"`
+	Color     uint32 `json:"color"`
+	Collapsed bool   `json:"collapsed"`
 }
 
 type Window struct {
@@ -464,10 +463,10 @@ func buildResult(tabs map[uint32]*tab, windows map[uint32]*window, activeWindow 
 			}
 
 			T := &Tab{
-				Active: idx == int(w.activeTabIdx),
-				Deleted: t.deleted,
-				Group: groupName,
-				GroupColor: groupColor,
+				Active:         idx == int(w.activeTabIdx),
+				Deleted:        t.deleted,
+				Group:          groupName,
+				GroupColor:     groupColor,
 				GroupCollapsed: groupCollapsed,
 			}
 
@@ -487,8 +486,8 @@ func buildResult(tabs map[uint32]*tab, windows map[uint32]*window, activeWindow 
 
 		for _, tg := range w.tabGroups {
 			TG := &TabGroup{
-				Name: tg.name,
-				Color: tg.color,
+				Name:      tg.name,
+				Color:     tg.color,
 				Collapsed: tg.collapsed,
 			}
 
@@ -580,7 +579,7 @@ func main() {
 	flag.BoolVar(&historyFlag, "history", false, "Include the history of each tab in the output.")
 
 	flag.Usage = func() {
-		fmt.Printf("Usage: chrome-session-dump [options] ([session file] | [chrome dir])\n\n");
+		fmt.Printf("Usage: chrome-session-dump [options] ([session file] | [chrome dir])\n\n")
 		fmt.Printf(`If a chrome directory is supplied the most recent session file
 contained within it is used. If neither a directory or file
 is supplied then the program will use ~/.config/chrome by
