@@ -9,7 +9,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path"
 	"sort"
@@ -502,7 +501,7 @@ func parse(path string) Result {
 func findSession(_path string) string {
 	var cfile = ""
 
-	ents, err := ioutil.ReadDir(_path)
+	ents, err := os.ReadDir(_path)
 	if err != nil {
 		panic(err)
 	}
