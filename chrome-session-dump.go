@@ -441,6 +441,10 @@ func parse(path string) Result {
 		})
 	}
 
+	return buildResult(tabs, windows, activeWindow)
+}
+
+func buildResult(tabs map[uint32]*tab, windows map[uint32]*window, activeWindow *window) Result {
 	var Windows []*Window
 
 	for _, w := range windows {
