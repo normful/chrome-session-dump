@@ -473,10 +473,9 @@ func buildResult(tabs map[uint32]*tab, windows map[uint32]*window, activeWindow 
 
 			for _, h := range t.history {
 				T.History = append(T.History, &HistoryItem{h.url, h.title})
-				if h.idx == t.currentHistoryIdx { //Truncate history to avoid having to deal with trees TODO: find a better way to export this.
+				if h.idx == t.currentHistoryIdx {
 					T.Url = h.url
 					T.Title = h.title
-					break
 				}
 			}
 
